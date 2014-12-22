@@ -342,9 +342,8 @@ class Game:
     state.hand = copy(player.hand)
     state.discardPile = copy(self.discardPile)
     state.us = copy(self.teams[player.teamNumber])
-    state.opponents = copy(self.teams)
     state.opponents = deepcopy(self.teams)
-    del state.opponents[(player.teamNumber)]
+    state.opponents[player.teamNumber] = None
     # Passed by value, doesn't need copying
     state.target = self.target
     state.cardsLeft = self.deck.cardsLeft()
