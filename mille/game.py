@@ -111,7 +111,7 @@ class Game:
 
     # Deal hands
     for player in self.players:
-      player.hand = self.deck.draw(player, 6)
+      player.hand = self.draw(player, 6)
 
     # Reset per-hand team variables
     for team in self.teams:
@@ -127,7 +127,7 @@ class Game:
       currentTeam = self.teams[currentPlayer.teamNumber]
 
       try:
-        currentPlayer.hand.append(self.deck.draw(currentPlayer))
+        currentPlayer.hand.append(self.draw(currentPlayer))
       except IndexError:
         self.delayedAction = True
 
@@ -237,7 +237,7 @@ class Game:
             # Draw an extra card to replace the one just played
             try:
               player = self.players[coupFourrePlayerNumber]
-              player.hand.append(self.deck.draw(player))
+              player.hand.append(self.draw(player))
             except IndexError:
               pass
             targetTeam.coupFourres += 1
@@ -362,3 +362,12 @@ class Game:
     state.cardsLeft = self.deck.cardsLeft()
     state.playerCount = len(self.players)
     return state
+
+  def draw(self, player, count = 1):
+    cards = self.deck.draw(count)
+    if count == 1:
+      player.ai.cardDrawn(cards)
+    else:
+      for card in cards:
+        player.ai.cardDrawn(card)
+    return cards
