@@ -88,9 +88,6 @@ class Game:
     for player in self.players:
       player.ai.gameStarted(self.makeState(player))
 
-    for player in self.players:
-      self.gameStarted(self.makeState(currentPlayer))
-
     while not gameOver:
       # Run a single hand
       self.playHand()
