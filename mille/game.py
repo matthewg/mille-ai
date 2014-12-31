@@ -96,9 +96,6 @@ class Game:
     for player in self.players:
       player.ai.gameStarted(self.makeState(player))
 
-    if self.transcriptWriter:
-      self.transcriptWriter.writeGameStart()
-
     while not gameOver:
       # Run a single hand
       self.playHand()
@@ -138,9 +135,6 @@ class Game:
     # Deal hands
     for player in self.players:
       player.hand = self.draw(player, 6)
-
-    if self.transcriptWriter:
-      self.transcriptWriter.writeHandStart()
 
     currentPlayerNumber = 0
     # Normally this is currentPlayerNumber + 1, but in the case of a coup
